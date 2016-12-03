@@ -25,7 +25,7 @@ Account* loadAccounts() {
 
     Account *root = NULL;
     Account *cur = root;
-    char *pch = strtok(buf, ";");
+    char *pch = strtok(buf, "\n");
 
     while (pch != NULL) {
         Account *account = (Account*) malloc(sizeof(Account));
@@ -45,7 +45,7 @@ Account* loadAccounts() {
             root = cur = account;
         }
 
-        pch = strtok(NULL, ";");
+        pch = strtok(NULL, "\n");
     }
 
     free(buf);
