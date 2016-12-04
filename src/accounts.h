@@ -1,17 +1,20 @@
 #ifndef H_ACCOUNTS
 #define H_ACCOUNTS
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdio>
+#include <cstring>
+#include <iostream>
+#include <sstream>
+#include <vector>
+using namespace std;
 
-typedef struct Account {
-    int id;
-    char* name;
-    long balance;
-    struct Account* next;
-} Account;
+class Account {
+public:
+    int id = -1;
+    string name;
+    long balance = -1;
+    void dump();
+};
 
-void resetAccount(Account*);
-Account* loadAccounts();
+vector<Account*> loadAccounts();
 
 #endif

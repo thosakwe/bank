@@ -1,7 +1,9 @@
 #ifndef H_BALANCE
 #define H_BALANCE
-#include <stdio.h>
+#include <cstdio>
+#include <vector>
 #include "accounts.h"
+using namespace std;
 
 int checkBalance();
 
