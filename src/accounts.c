@@ -26,11 +26,19 @@ Account* loadAccounts() {
     Account *root = NULL;
     Account *cur = root;
     char *pch = strtok(buf, "\n");
+    
+    // Skip headers
+    pch = strtok(NULL, "\n");
 
-    while (pch != NULL) {
+    while (pch) {
         Account *account = (Account*) malloc(sizeof(Account));
-        resetAccount(account);
-        int result = sscanf("%d,%ld,%s", pch, &(account->id), &(account->balance), account->name);
+
+        if (account == NULL || !account) {
+            break;
+        }
+
+        // resetAccount(account);
+        int result = sscanf(pch, "%d,%ld,%s", &account->id, &account->balance, account->name);
 
         if (result < 3) {
             fprintf(stderr, "Invalid user: '%s'\n", pch);
@@ -38,7 +46,7 @@ Account* loadAccounts() {
 
         printf("%d,%ld,%s\n", account->id, account->balance, account->name);
 
-        if (cur) {
+        if (cur && cur != NULL) {
             cur->next = account;
             cur = account;
         } else {

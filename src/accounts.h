@@ -6,7 +6,7 @@
 
 typedef struct Account {
     int id;
-    const char* name;
+    char* name;
     long balance;
     struct Account* next;
 } Account;
