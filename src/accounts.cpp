@@ -7,25 +7,19 @@ void Account::dump() {
 
 vector<Account*> loadAccounts() {
     vector<Account*> accounts;
-    FILE *csv = fopen("accounts.csv", "r");
-    char* buf, trash;
-    long int len;
-    string name;
+    ifstream csv("accounts.csv");
+    stringstream iss;
+    string name, pch;
 
-    fseek(csv, 0, SEEK_END);
-    len = ftell(csv);
-    fseek(csv, 0, SEEK_SET);
-    buf = (char*) malloc(sizeof(char) * len);
-    fread(buf, len, 1, csv);
-    fclose(csv);
-
-    char *pch = strtok(buf, "\n");
+    iss << csv.rdbuf();
+    csv.close();
     
     // Skip headers
-    pch = strtok(NULL, "\n");
+    getline(iss, pch);
 
-    while (pch) {
+    while (getline(iss, pch)) {
         Account *account = new Account();
+        char *trash;
         stringstream ss(pch);
 
         ss >> account->id;
@@ -42,9 +36,7 @@ vector<Account*> loadAccounts() {
         }
 
         accounts.push_back(account);
-        pch = strtok(NULL, "\n");
     }
 
-    free(buf);
     return accounts;
 }
